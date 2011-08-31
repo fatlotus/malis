@@ -3,11 +3,6 @@ if (!window.JSON)
       parse : function (e) { return eval('('+e+')'); }
    }
 
-if (!window.console)
-   console = {
-      log : function(e) { }
-   }
-
 if (!Array.prototype.unique)
    Array.prototype.unique = function() {
       var a = this.concat();
@@ -52,14 +47,10 @@ ClientSideSearch = {
       var totalLoaded = 0;
       var queries = query.split(' ');
       
-      console.log(queries);
-      
       for (var i = 0; i < queries.length; i++) {
          var query = queries[i];
          
          ClientSideSearch.load(query, function (list) {
-            console.log('list: ', list);
-            
             totalLoaded += 1;
             
             for (var j = 0; j < list.length; j++) {
@@ -78,7 +69,14 @@ ClientSideSearch = {
                   var dt = document.createElement('dt');
                   var dd = document.createElement('dd');
                   dt.appendChild(document.createTextNode(data[0]));
-                  dd.appendChild(document.createTextNode(data[1]));
+                  
+                  var highlighted = ' ' + data[1] + ' ';
+                  
+                  for (var j = 0; j < queries.length; j++) {
+                     highlighted = highlighted.replace(' ' + queries[j] + ' ', ' <strong>' + queries[j] + '</strong> ')
+                  }
+                  
+                  dd.innerHTML = highlighted;
                   
                   ClientSideSearch._resultsDiv.appendChild(dt);
                   ClientSideSearch._resultsDiv.appendChild(dd);
