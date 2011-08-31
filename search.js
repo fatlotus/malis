@@ -27,14 +27,15 @@ ClientSideSearch = {
          if (xhr.readyState == 4) {
             if (xhr.status >= 200 && xhr.status < 300) {
                /* handle successful response */
-               callback (JSON.parse( xhr.responseText));
+               callback(JSON.parse(xhr.responseText));
             } else {
-               /* handle failed response - */
-            
-               if (xhr.statusCode != 404)
-                  console.log("")
+               /* handle failed response */
                
-               callback ([ ])
+               /* 404's are expected, so mask them from being logged */
+               if (xhr.status != 404)
+                  console.log("HTTP Error: " + xhr.status);
+               
+               callback ([ ]);
             }
          }
       }
