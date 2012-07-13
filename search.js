@@ -46,7 +46,7 @@ ClientSideSearch = {
    search : function(query) {
       var results = { }; // a poor-man's set.
       var totalLoaded = 0;
-      var queries = query.split(' ');
+      var queries = query.toLowerCase().replace('/[^a-z]/g', '').split(' ');
       
       for (var i = 0; i < queries.length; i++) {
          var query = queries[i];
