@@ -74,7 +74,7 @@ ClientSideSearch = {
                   var highlighted = ' ' + data[1] + ' ';
                   
                   for (var j = 0; j < queries.length; j++) {
-                     highlighted = highlighted.replace(' ' + queries[j] + ' ', ' <strong>' + queries[j] + '</strong> ')
+                     highlighted = highlighted.replace(new RegExp(' ' + queries[j] + ' ', 'i'), ' <strong>$0</strong> ')
                   }
                   
                   dd.innerHTML = highlighted;
